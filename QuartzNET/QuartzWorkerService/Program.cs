@@ -2,14 +2,9 @@ using Quartz;
 using QuartzWorkerService;
 using Serilog;
 
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.File("logs/log.txt",
-        restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information,
-        rollingInterval: RollingInterval.Day)
-    .CreateLogger();
-
 IHost host = Host.CreateDefaultBuilder(args)
-    .UseSerilog()
+    .UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
+        .ReadFrom.Configuration(hostingContext.Configuration))
     .ConfigureServices((hostBuilder, services) =>
     {
         services.AddQuartz(quartzConfig =>
