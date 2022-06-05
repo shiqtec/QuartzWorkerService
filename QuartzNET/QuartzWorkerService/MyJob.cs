@@ -14,7 +14,6 @@ namespace QuartzWorkerService
         public Task Execute(IJobExecutionContext context)
         {
             _logger.LogInformation("Starting MyJob");
-            _logger.LogWarning("Starting MyJob");
             return Task.CompletedTask;
         }
     }
